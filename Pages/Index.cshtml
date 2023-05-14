@@ -4,7 +4,28 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="bg-secondary bg-opacity-10 py-2 mb-3">
+    <div class="container">
+        <h3>Wypełnij pola i naciśnij przycisk "Zatwierdź" aby sprawdzić czy podany rok jest przestępny :)</h3>
+    </div>
+</div>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group" mb-2>
+            <label for="Name">Imię</label>
+            <input type="text" class="form-control" id="name" aria-describedby="NameHelp" placeholder="Wprowadź imię." asp-for="AddYearNameFormRequest.Name">
+            <small id="NameHelp" class="form-text text-muted">Imię nie jest obowiązkowe ;)</small>
+        </div>
+
+        <div class="form-group" mb-4>
+            <label for="Year">Rok</label>
+            <input type="number" class="form-control" id="year" aria-describedby="YearHelp" placeholder="Wprowadź rok." asp-for="AddYearNameFormRequest.Year">
+            <small id="YearHelp" class="form-text text-muted">Zakres: 1899-2022.</small>
+        </div>
+
+        <div class="d-grid gap-2" mb-2>
+            <button class="btn btn-primary" type="submit">Zatwierdź</button>
+        </div>
+    </form>
 </div>

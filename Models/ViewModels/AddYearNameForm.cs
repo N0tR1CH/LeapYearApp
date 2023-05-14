@@ -1,14 +1,11 @@
-﻿namespace LeapYearApp.Models.Domain
+﻿namespace LeapYearApp.Models.ViewModels
 {
-    public class YearNameForm
+    public class AddYearNameForm
     {
-        public Guid Id { get; set; }
         public int Year { get; set; }
         public string? Name { get; set; }
         public string Result { get; set; }
         public DateTime PublishedDate { get; set; }
-        public bool IsLeapYear { get; set; }
         public bool IsFemale { get; set; }
-        public Guid UserId { get; set; }
     }
 }
