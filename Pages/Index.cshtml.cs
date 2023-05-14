@@ -24,8 +24,9 @@ namespace LeapYearApp.Pages
         {
         }
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
+            // _addYearNameFormRequestService.AddYearNameForm(AddYearNameFormRequest);
             AddYearNameFormRequest.PublishedDate = DateTime.Now;
 
             bool isFemale = false;
@@ -45,6 +46,8 @@ namespace LeapYearApp.Pages
 
             _leapYearAppDbContext.YearNameForms.Add(yearNameForm);
             _leapYearAppDbContext.SaveChanges();
+
+            return Page();
         }
     }
 }

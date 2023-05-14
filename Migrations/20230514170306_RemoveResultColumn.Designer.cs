@@ -4,6 +4,7 @@ using LeapYearApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LeapYearApp.Migrations
 {
     [DbContext(typeof(LeapYearAppDbContext))]
-    partial class LeapYearAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230514170306_RemoveResultColumn")]
+    partial class RemoveResultColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
