@@ -1,0 +1,47 @@
+﻿@page
+@model LeapYearApp.Pages.RegisterModel
+@{
+}
+
+<div class="container mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+            <h1 class="mb-3 mt-5 h3">Rejestracja</h1>
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label">Nazwa użytkownika</label>
+                    <input type="text" class="form-control" asp-for="RegisterViewModel.Username"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Adres email</label>
+                    <input type="email" class="form-control" asp-for="RegisterViewModel.Email"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Hasło użytkownika</label>
+                    <input type="password" class="form-control" asp-for="RegisterViewModel.Password"/>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit">Zarejestruj</button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@{
+    var messageDescription = (string)ViewData["Notification"];
+}
+
+@if (!string.IsNullOrWhiteSpace(messageDescription))
+{
+    <div class="container">
+        <div class="alert alert-success alert-dismissible" mb-5 role="alert">
+            @Html.Raw(messageDescription)
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}
+```

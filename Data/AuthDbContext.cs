@@ -8,7 +8,7 @@ namespace LeapYearApp.Data
 {
     public class AuthDbContext : IdentityDbContext
     {
-        public AuthDbContext(DbContextOptions options) : base(options)
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
         }
 
@@ -24,10 +24,12 @@ namespace LeapYearApp.Data
                 {
                     Name = "User",
                     NormalizedName = "User",
-                    Id = UserRoleId,
-                    ConcurrencyStamp = userId
+                    Id = userRoleId,
+                    ConcurrencyStamp = userRoleId
                 }
             };
+
+            builder.Entity<IdentityRole>().HasData(roles);
         }
     }
 }

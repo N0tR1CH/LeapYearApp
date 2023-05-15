@@ -5,7 +5,7 @@ namespace LeapYearApp.Data
 {
     public class LeapYearAppDbContext : DbContext
     {
-        public LeapYearAppDbContext(DbContextOptions options) : base(options)
+        public LeapYearAppDbContext(DbContextOptions<LeapYearAppDbContext> options) : base(options)
         {
         }
 

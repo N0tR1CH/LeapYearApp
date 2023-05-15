@@ -19,6 +19,14 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequireUppercase= false;
+});
+
 builder.Services.AddScoped<IYearNameFormRepository, YearNameFormRepository>();
 
 var app = builder.Build();
