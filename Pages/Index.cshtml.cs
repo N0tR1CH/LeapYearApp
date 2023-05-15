@@ -45,10 +45,13 @@ namespace LeapYearApp.Pages
             bool isUserSignedIn = _signInManager.IsSignedIn(User);
 
             Guid userId = Guid.Empty;
+            string username = "Anonymous";
 
             if(isUserSignedIn)
             {
                 userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                IdentityUser user = await _userManager.FindByIdAsync(userId.ToString());
+                username = user.UserName;
             }
 
             var yearNameForm = new YearNameForm()
@@ -58,7 +61,8 @@ namespace LeapYearApp.Pages
                 PublishedDate = AddYearNameFormRequest.PublishedDate,
                 IsLeapYear = DateTime.IsLeapYear(AddYearNameFormRequest.Year),
                 IsFemale = isFemale,
-                UserId = userId
+                UserId = userId,
+                Login = username
             };
 
 
