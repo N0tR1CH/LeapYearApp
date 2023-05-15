@@ -15,7 +15,9 @@
         <div class="form-group" mb-2>
             <label for="Name">Imię</label>
             <input type="text" class="form-control" id="name" aria-describedby="NameHelp" placeholder="Wprowadź imię." asp-for="AddYearNameFormRequest.Name">
-            <small id="NameHelp" class="form-text text-muted">Imię nie jest obowiązkowe ;)</small>
+            <small id="NameHelp" class="form-text text-muted">
+                Imię nie jest obowiązkowe ;)
+            </small>
         </div>
 
         <div class="form-group" mb-4>
@@ -24,8 +26,22 @@
             <small id="YearHelp" class="form-text text-muted">Zakres: 1899-2022.</small>
         </div>
 
-        <div class="d-grid gap-2" mb-2>
+        <div class="d-grid gap-2" mb-5>
             <button class="btn btn-primary" type="submit">Zatwierdź</button>
         </div>
     </form>
 </div>
+
+@{
+    var messageDescription = (string)ViewData["MessageDescription"];
+}
+
+@if (!string.IsNullOrWhiteSpace(messageDescription))
+{
+    <div class="container">
+        <div class="alert alert-success alert-dismissible" mb-5 role="alert">
+            @Html.Raw(messageDescription)
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}

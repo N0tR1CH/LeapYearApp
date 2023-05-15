@@ -1,6 +1,7 @@
 using LeapYearApp.Data;
 using LeapYearApp.Extensions;
 using LeapYearApp.Models.Domain;
+using LeapYearApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,32 +13,20 @@ namespace LeapYearApp.Pages
     {
         private readonly LeapYearAppDbContext _leapYearAppDbContext;
         private readonly IConfiguration _configuration;
+        private readonly IYearNameFormRepository _yearNameFormRepository;
         public PaginatedList<YearNameForm> YearNameForms { get; set; }
 
-        public SearchHistoryModel(LeapYearAppDbContext leapYearAppDbContext, IConfiguration configuration)
+        public SearchHistoryModel(LeapYearAppDbContext leapYearAppDbContext, IConfiguration configuration, IYearNameFormRepository yearNameFormRepository)
         {
             _leapYearAppDbContext = leapYearAppDbContext;
             _configuration = configuration;
+            _yearNameFormRepository = yearNameFormRepository;
         }
 
-        public async Task OnGetAsync(string sortOder, string currentFilter, string searchString, int? pageIndex)
+        public async Task OnGetAsync(int? pageIndex)
         {
-            ViewData["CurrentFilter"] = searchString;
-            if (searchString != null)
-            {
-                pageIndex = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
             IQueryable<YearNameForm> yearNameFormsIQ = from s in _leapYearAppDbContext.YearNameForms
                                                        select s;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                yearNameFormsIQ = yearNameFormsIQ.Where(s => s.Name.Contains(searchString)
-                                                      || s.Year.ToString().Contains(searchString));
-            }
 
             yearNameFormsIQ = yearNameFormsIQ.OrderByDescending(s => s.PublishedDate);
 
@@ -48,16 +37,12 @@ namespace LeapYearApp.Pages
 
         public async Task<IActionResult> OnPostDelete(Guid id)
         {
-            YearNameForm existingYearNameForm = new YearNameForm() { Id= id };
+            var deleted = await _yearNameFormRepository.DeleteAsync(id);
 
-            if (existingYearNameForm != null)
+            if (deleted)
             {
-                _leapYearAppDbContext.Remove(existingYearNameForm);
-                await _leapYearAppDbContext.SaveChangesAsync();
-
                 return RedirectToPage("SearchHistory");
             }
-
             return Page();
         }
     }
