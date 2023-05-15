@@ -59,16 +59,23 @@ namespace LeapYearApp.Pages
 
             string verb;
 
-            if (yearNameForm.IsFemale && yearNameForm.Name != null)
+            if (yearNameForm.Name == null)
             {
-                verb = "urodziła";
+                verb = "";
             } 
             else
             {
-                verb = "urodził";
+                if (isFemale)
+                {
+                    verb = "urodziła";
+                }
+                else
+                {
+                    verb = "urodził";
+                }
+                message = $"{yearNameForm.Name} {verb} się w {yearNameForm.Year} roku. {message}";
             }
 
-            message = $"{yearNameForm.Name} {verb} się w {yearNameForm.Year} roku. {message}";
 
             ViewData["MessageDescription"] = message;
 
