@@ -1,5 +1,6 @@
 using LeapYearApp.Data;
 using LeapYearApp.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<LeapYearAppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("LeapYearAppConnectionString")));
+
+builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseSqlServer(
+               builder.Configuration.GetConnectionString("LeapYearAppAuthConnectionString")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AuthDbContext>();
 
 builder.Services.AddScoped<IYearNameFormRepository, YearNameFormRepository>();
 
@@ -28,6 +36,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
