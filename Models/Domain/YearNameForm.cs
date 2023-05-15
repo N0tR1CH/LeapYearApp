@@ -4,6 +4,7 @@
     {
         public Guid Id { get; set; }
         public int Year { get; set; }
+        public string? Login { get; set; }
         public string? Name { get; set; }
         public DateTime PublishedDate { get; set; }
         public bool IsLeapYear { get; set; }

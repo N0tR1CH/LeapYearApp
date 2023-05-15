@@ -2,8 +2,11 @@
 using LeapYearApp.Models.Domain;
 using LeapYearApp.Models.ViewModels;
 using LeapYearApp.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Security.Claims;
 
 namespace LeapYearApp.Pages
 {
@@ -12,13 +15,17 @@ namespace LeapYearApp.Pages
         [BindProperty]
         public AddYearNameForm AddYearNameFormRequest { get; set; }
 
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<IndexModel> _logger;
         private readonly IYearNameFormRepository _yearNameFormRepository;
 
-        public IndexModel(ILogger<IndexModel> logger, IYearNameFormRepository yearNameFormRepository)
+        public IndexModel(ILogger<IndexModel> logger, IYearNameFormRepository yearNameFormRepository, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _logger = logger;
             _yearNameFormRepository = yearNameFormRepository;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public void OnGet()
@@ -30,9 +37,18 @@ namespace LeapYearApp.Pages
             AddYearNameFormRequest.PublishedDate = DateTime.Now;
 
             bool isFemale = false;
-            if (AddYearNameFormRequest.Name != null) 
+            if (AddYearNameFormRequest.Name != null)
             {
                 isFemale = AddYearNameFormRequest.Name.ToLower().EndsWith('a');
+            }
+
+            bool isUserSignedIn = _signInManager.IsSignedIn(User);
+
+            Guid userId = Guid.Empty;
+
+            if(isUserSignedIn)
+            {
+                userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             }
 
             var yearNameForm = new YearNameForm()
@@ -41,14 +57,16 @@ namespace LeapYearApp.Pages
                 Name = AddYearNameFormRequest.Name,
                 PublishedDate = AddYearNameFormRequest.PublishedDate,
                 IsLeapYear = DateTime.IsLeapYear(AddYearNameFormRequest.Year),
-                IsFemale = isFemale
+                IsFemale = isFemale,
+                UserId = userId
             };
+
 
             await _yearNameFormRepository.AddAsync(yearNameForm);
 
             string message;
 
-            if(yearNameForm.IsLeapYear)
+            if (yearNameForm.IsLeapYear)
             {
                 message = "To był rok przestępny.";
             }
@@ -62,7 +80,7 @@ namespace LeapYearApp.Pages
             if (yearNameForm.Name == null)
             {
                 verb = "";
-            } 
+            }
             else
             {
                 if (isFemale)

@@ -15,6 +15,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">UserID</th>
                     <th scope="col">Imię</th>
                     <th scope="col">Rok</th>
                     <th scope="col">Czy przestępny?</th>
@@ -27,6 +28,7 @@
                 @foreach (var item in Model.YearNameForms)
                 {
                     <tr>
+                        <td>@item.UserId</td>
                         <td>@item.Name</td>
                         <td>@item.Year</td>
                         <td>@item.IsLeapYear</td>
