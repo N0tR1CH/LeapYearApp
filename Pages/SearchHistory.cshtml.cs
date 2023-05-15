@@ -45,5 +45,20 @@ namespace LeapYearApp.Pages
             YearNameForms = await PaginatedList<YearNameForm>.CreateAsync(
                                yearNameFormsIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
+
+        public async Task<IActionResult> OnPostDelete(Guid id)
+        {
+            YearNameForm existingYearNameForm = new YearNameForm() { Id= id };
+
+            if (existingYearNameForm != null)
+            {
+                _leapYearAppDbContext.Remove(existingYearNameForm);
+                await _leapYearAppDbContext.SaveChangesAsync();
+
+                return RedirectToPage("SearchHistory");
+            }
+
+            return Page();
+        }
     }
 }

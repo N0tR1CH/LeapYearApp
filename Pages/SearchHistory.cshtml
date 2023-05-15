@@ -9,46 +9,61 @@
     </div>
 </div>
 
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Imię</th>
-                <th scope="col">Rok</th>
-                <th scope="col">Czy przestępny?</th>
-                <th scope="col">Data wyszukania</th>
-                <th scope="col"> </th>
-                <th scope="col"> </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.YearNameForms)
-            {
+@if (Model.YearNameForms != null && Model.YearNameForms.Any())
+{
+    <div class="container">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Year</td>
-                    <td>@item.IsLeapYear</td>
-                    <td>@item.PublishedDate</td>
-                    <td><a href="/EditYearNameFormRequest/@item.Id">Edit</a></td>
-                    <td><a href="/DeleteYearNameFormRequest">Delete</a></td>
+                    <th scope="col">Imię</th>
+                    <th scope="col">Rok</th>
+                    <th scope="col">Czy przestępny?</th>
+                    <th scope="col">Data wyszukania</th>
+                    <th scope="col">Edycja</th>
+                    <th scope="col">Usunięcie</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.YearNameForms)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Year</td>
+                        <td>@item.IsLeapYear</td>
+                        <td>@item.PublishedDate</td>
+                        <td><a href="/EditYearNameFormRequest/@item.Id" class="btn btn-primary">Edit</a></td>
+                        <td>
+                            <form asp-page-handler="Delete" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-    @{
-        var prevDisabled = !Model.YearNameForms.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.YearNameForms.HasNextPage ? "disabled" : "";
-    }
+        @{
+            var prevDisabled = !Model.YearNameForms.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.YearNameForms.HasNextPage ? "disabled" : "";
+        }
 
-    <a asp-page="./SearchHistory"
+        <a asp-page="./SearchHistory"
        asp-route-pageIndex="@(Model.YearNameForms.PageIndex - 1)"
        class="btn btn-primary @prevDisabled">
-        Previous
-    </a>
-    <a asp-page="./SearchHistory"
+            Previous
+        </a>
+        <a asp-page="./SearchHistory"
        asp-route-pageIndex="@(Model.YearNameForms.PageIndex + 1)"
        class="btn btn-primary @nextDisabled">
-        Next
-    </a>
-</div>
+            Next
+        </a>
+    </div>
+}
+else
+{
+    <div class="container">
+        <p>Lista jest pusta :(</p>
+    </div>
+}
+

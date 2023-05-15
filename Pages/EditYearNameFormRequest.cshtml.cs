@@ -17,14 +17,14 @@ namespace LeapYearApp.Pages
             _leapYearAppDbContext = leapYearAppDbContext;
         }
 
-        public void OnGet(Guid id)
+        public async Task OnGet(Guid id)
         {
-            YearNameForm = _leapYearAppDbContext.YearNameForms.Find(id);
+           YearNameForm = await _leapYearAppDbContext.YearNameForms.FindAsync(id);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostEdit()
         {
-            var existingYearNameForm = _leapYearAppDbContext.YearNameForms.Find(YearNameForm.Id);            
+            var existingYearNameForm = await _leapYearAppDbContext.YearNameForms.FindAsync(YearNameForm.Id);            
 
             bool isFemale = false;
             if (YearNameForm.Name != null) 
@@ -40,7 +40,7 @@ namespace LeapYearApp.Pages
                 existingYearNameForm.IsLeapYear = DateTime.IsLeapYear(YearNameForm.Year);
             }
 
-            _leapYearAppDbContext.SaveChanges();
+            await _leapYearAppDbContext.SaveChangesAsync();
 
             return RedirectToPage("/SearchHistory");
         }

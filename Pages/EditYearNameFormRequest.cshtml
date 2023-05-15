@@ -9,27 +9,36 @@
     </div>
 </div>
 
-<div class="container">
-    <form method="post">
-        <div class="mb-3">
-            <label for="id" class="form-label">Id</label>
-            <input type="text" class="form-control" id="id" asp-for="YearNameForm.Id" readonly>
-        </div>
+@if (Model.YearNameForm != null)
+{
+    <div class="container">
+        <form method="post">
+            <div class="mb-3">
+                <label for="id" class="form-label">Id</label>
+                <input type="text" class="form-control" id="id" asp-for="YearNameForm.Id" readonly>
+            </div>
 
-        <div class="form-group" mb-2>
-            <label for="Name">Imię</label>
-            <input type="text" class="form-control" id="name" aria-describedby="NameHelp" placeholder="Wprowadź imię." asp-for="YearNameForm.Name">
-            <small id="NameHelp" class="form-text text-muted">Imię nie jest obowiązkowe ;)</small>
-        </div>
+            <div class="form-group" mb-2>
+                <label for="Name">Imię</label>
+                <input type="text" class="form-control" id="name" aria-describedby="NameHelp" placeholder="Wprowadź imię." asp-for="YearNameForm.Name">
+                <small id="NameHelp" class="form-text text-muted">Imię nie jest obowiązkowe ;)</small>
+            </div>
 
-        <div class="form-group" mb-4>
-            <label for="Year">Rok</label>
-            <input type="number" class="form-control" id="year" aria-describedby="YearHelp" placeholder="Wprowadź rok." asp-for="YearNameForm.Year">
-            <small id="YearHelp" class="form-text text-muted">Zakres: 1899-2022.</small>
-        </div>
+            <div class="form-group" mb-4>
+                <label for="Year">Rok</label>
+                <input type="number" class="form-control" id="year" aria-describedby="YearHelp" placeholder="Wprowadź rok." asp-for="YearNameForm.Year">
+                <small id="YearHelp" class="form-text text-muted">Zakres: 1899-2022.</small>
+            </div>
 
-        <div class="d-grid gap-2" mb-2>
-            <button class="btn btn-primary" type="submit">Zatwierdź</button>
-        </div>
-    </form>
-</div>
+            <div class="d-grid gap-2" mb-2>
+                <button class="btn btn-primary" type="submit" asp-page-handler="Edit">Zatwierdź</button>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <div class="container">
+        <p>Form request not found :(</p>
+    </div>
+}
