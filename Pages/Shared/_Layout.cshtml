@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,6 +29,20 @@
                             <a class="nav-link text-light" asp-area="" asp-page="/SearchHistory">Historia wyszukiwań</a>
                         </li>
                     </ul>
+                    <div class="d-flex align-items-center">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <div class="me-3 text-light">
+                                @User?.Identity?.Name
+                            </div>
+                            <a href="/logout" class="btn bg-light text-dark me-3">Wyloguj</a>
+                        }
+                        else
+                        {
+                            <a href="/login" class="btn bg-light text-dark me-3">Logowanie</a>
+                            <a href="/register" class="btn bg-light text-dark me-3">Rejestracja</a>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>
