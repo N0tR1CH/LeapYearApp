@@ -15,28 +15,28 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Login</th>
-                    <th scope="col">UserID</th>
-                    <th scope="col">Imię</th>
-                    <th scope="col">Rok</th>
-                    <th scope="col">Czy przestępny?</th>
-                    <th scope="col">Data wyszukania</th>
-                    <th scope="col">Edycja</th>
-                    <th scope="col">Usunięcie</th>
+                    <th scope="col" class="text-center">Login</th>
+                    <th scope="col" class="text-center">UserID</th>
+                    <th scope="col" class="text-center">Imię</th>
+                    <th scope="col" class="text-center">Rok</th>
+                    <th scope="col" class="text-center">Czy przestępny?</th>
+                    <th scope="col" class="text-center">Data wyszukania</th>
+                    <th scope="col" class="text-center">Edycja</th>
+                    <th scope="col" class="text-center">Usunięcie</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.YearNameForms)
                 {
                     <tr>
-                        <td>@item.Login</td>
-                        <td>@item.UserId</td>
-                        <td>@item.Name</td>
-                        <td>@item.Year</td>
-                        <td>@item.IsLeapYear</td>
-                        <td>@item.PublishedDate</td>
-                        <td><a href="/EditYearNameFormRequest/@item.Id" class="btn btn-primary">Edit</a></td>
-                        <td>
+                        <td class="text-center">@item.Login</td>
+                        <td class="text-center">@item.UserId</td>
+                        <td class="text-center">@item.Name</td>
+                        <td class="text-center">@item.Year</td>
+                        <td class="text-center">@((item.IsLeapYear) ? "Tak" : "Nie")</td>
+                        <td class="text-center">@item.PublishedDate</td>
+                        <td class="text-center"><a href="/EditYearNameFormRequest/@item.Id" class="btn btn-primary">Edit</a></td>
+                        <td class="text-center">
                             <form asp-page-handler="Delete" method="post">
                                 <input type="hidden" name="id" value="@item.Id" />
                                 <button class="btn btn-danger" type="submit">Delete</button>
