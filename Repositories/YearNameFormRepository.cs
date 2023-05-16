@@ -22,7 +22,7 @@ namespace LeapYearApp.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            YearNameForm existingYearNameForm = new YearNameForm() { Id= id };
+            var existingYearNameForm = await _leapYearAppDbContext.YearNameForms.FindAsync(id);
 
             if (existingYearNameForm != null)
             {
