@@ -18,12 +18,14 @@
             <small id="NameHelp" class="form-text text-muted">
                 Imię nie jest obowiązkowe ;)
             </small>
+            <span asp-validation-for="AddYearNameFormRequest.Name" class="text-danger"></span>
         </div>
 
         <div class="form-group" mb-4>
             <label for="Year">Rok</label>
             <input type="number" class="form-control" id="year" aria-describedby="YearHelp" placeholder="Wprowadź rok." asp-for="AddYearNameFormRequest.Year">
             <small id="YearHelp" class="form-text text-muted">Zakres: 1899-2022.</small>
+            <span asp-validation-for="AddYearNameFormRequest.Year" class="text-danger"></span>
         </div>
 
         <div class="d-grid gap-2" mb-5>

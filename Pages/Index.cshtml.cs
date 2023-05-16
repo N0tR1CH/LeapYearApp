@@ -34,6 +34,11 @@ namespace LeapYearApp.Pages
 
         public async Task<IActionResult> OnPost()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             AddYearNameFormRequest.PublishedDate = DateTime.Now;
 
             bool isFemale = false;

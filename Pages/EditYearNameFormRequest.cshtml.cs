@@ -32,7 +32,7 @@ namespace LeapYearApp.Pages
 
         public async Task<IActionResult> OnPostEdit()
         {
-            // Powrót blokuje edycje dla kazdego
+            // Powrót --> blokuje edycje dla kazdego
             return RedirectToPage("/SearchHistory");
             await _yearNameFormRepository.UpdateAsync(YearNameForm);
         }
