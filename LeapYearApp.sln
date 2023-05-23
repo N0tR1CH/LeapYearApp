@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeapYearApp", "LeapYearApp.csproj", "{3D408CB0-C0BB-4C89-8F1E-2C0073631935}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeapYearApp.Web", "src\LeapYearApp.Web\LeapYearApp.Web.csproj", "{EAD57E71-1898-45C0-B632-FD6437ADB64C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeapYearApp.Web.Tests", "test\LeapYearApp.Web.Tests\LeapYearApp.Web.Tests.csproj", "{5D49B45A-DE36-45A0-8082-3A5A5A67B3B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{270A4D9E-6E90-4AA4-90CF-6F74E6CEB9AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1E717C10-6158-4DBD-97E5-89E667AC39F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{87D3DCF1-1489-4D20-AE3D-64B610F0F550}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +23,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D408CB0-C0BB-4C89-8F1E-2C0073631935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D408CB0-C0BB-4C89-8F1E-2C0073631935}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D408CB0-C0BB-4C89-8F1E-2C0073631935}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D408CB0-C0BB-4C89-8F1E-2C0073631935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD57E71-1898-45C0-B632-FD6437ADB64C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD57E71-1898-45C0-B632-FD6437ADB64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD57E71-1898-45C0-B632-FD6437ADB64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD57E71-1898-45C0-B632-FD6437ADB64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D49B45A-DE36-45A0-8082-3A5A5A67B3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D49B45A-DE36-45A0-8082-3A5A5A67B3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D49B45A-DE36-45A0-8082-3A5A5A67B3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D49B45A-DE36-45A0-8082-3A5A5A67B3B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EAD57E71-1898-45C0-B632-FD6437ADB64C} = {270A4D9E-6E90-4AA4-90CF-6F74E6CEB9AD}
+		{5D49B45A-DE36-45A0-8082-3A5A5A67B3B7} = {1E717C10-6158-4DBD-97E5-89E667AC39F5}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8ED8483D-C685-4A56-A9B9-CFC995B29801}
+		SolutionGuid = {3799FFD5-6A64-4651-8BE9-971A05D0B8EB}
 	EndGlobalSection
 EndGlobal
