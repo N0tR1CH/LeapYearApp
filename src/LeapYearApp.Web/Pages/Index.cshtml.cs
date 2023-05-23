@@ -2,6 +2,7 @@
 using LeapYearApp.Models.Domain;
 using LeapYearApp.Models.ViewModels;
 using LeapYearApp.Repositories;
+using LeapYearApp.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,15 +18,17 @@ namespace LeapYearApp.Pages
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IMessageService _messageService;
         private readonly ILogger<IndexModel> _logger;
         private readonly IYearNameFormRepository _yearNameFormRepository;
 
-        public IndexModel(ILogger<IndexModel> logger, IYearNameFormRepository yearNameFormRepository, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public IndexModel(ILogger<IndexModel> logger, IYearNameFormRepository yearNameFormRepository, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMessageService messageService)
         {
             _logger = logger;
             _yearNameFormRepository = yearNameFormRepository;
             _userManager = userManager;
             _signInManager = signInManager;
+            _messageService = messageService;
         }
 
         public void OnGet()
@@ -52,7 +55,7 @@ namespace LeapYearApp.Pages
             Guid userId = Guid.Empty;
             string username = "Anonymous";
 
-            if(isUserSignedIn)
+            if (isUserSignedIn)
             {
                 userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
                 IdentityUser user = await _userManager.FindByIdAsync(userId.ToString());
@@ -73,38 +76,12 @@ namespace LeapYearApp.Pages
 
             await _yearNameFormRepository.AddAsync(yearNameForm);
 
-            string message;
-
-            if (yearNameForm.IsLeapYear)
-            {
-                message = "To był rok przestępny.";
-            }
-            else
-            {
-                message = "To nie był rok przestępny.";
-            }
-
-            string verb;
-
-            if (yearNameForm.Name == null)
-            {
-                verb = "";
-            }
-            else
-            {
-                if (isFemale)
-                {
-                    verb = "urodziła";
-                }
-                else
-                {
-                    verb = "urodził";
-                }
-                message = $"{yearNameForm.Name} {verb} się w {yearNameForm.Year} roku. {message}";
-            }
-
-
-            ViewData["MessageDescription"] = message;
+            ViewData["MessageDescription"] = _messageService.GenerateMessageForIndexPage(
+                yearNameForm.Year,
+                yearNameForm.Name,
+                isFemale,
+                yearNameForm.IsLeapYear
+            );
 
             return Page();
         }

@@ -14,7 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{87D3DCF1-1489-4D20-AE3D-64B610F0F550}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+<<<<<<< HEAD
 		README.md = README.md
+=======
+>>>>>>> main
 	EndProjectSection
 EndProject
 Global

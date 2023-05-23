@@ -1,5 +1,6 @@
 using LeapYearApp.Data;
 using LeapYearApp.Repositories;
+using LeapYearApp.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddScoped<IYearNameFormRepository, YearNameFormRepository>();
+builder.Services.AddSingleton<IMessageService, MessageService>();
 
 var app = builder.Build();
 
